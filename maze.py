@@ -6,5 +6,4 @@ def initialize_maze(x):
         print(row)
 
 
-
 initialize_maze(5)
