@@ -7,9 +7,18 @@ class Maze:
         self.height = 2 * width + 1     # // 2 * 2 - 1
         self.cells = [["#" for x in range(self.width)] for y in range(self.height)]
         self.cells[0][0] = "."
-        self.cells[0][1] = "."
-        self.cells[self.width - 1][self.height - 2] = "."
         self.cells[self.width - 1][self.height - 1] = "."
+        rand = random.randint(1, 2)
+        if rand == 1:
+            self.cells[0][1] = "."
+        else:
+            self.cells[1][0] = "."
+        rand = random.randint(1, 2)
+        if rand == 1:
+            self.cells[self.width - 1][self.height - 2] = "."
+        else:
+            self.cells[self.width - 2][self.height - 1] = "."
+        self.create_maze(1, 1)
 
     def display(self):
         for i in range(self.width):
@@ -49,5 +58,4 @@ class Maze:
 
 
 X = Maze(4)
-X.create_maze(1, 1)
 Maze.display(X)
