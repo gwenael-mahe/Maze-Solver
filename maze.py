@@ -2,10 +2,10 @@ import random
 
 
 class Maze:
-    def __init__(self, width, height):
-        self.width = width // 2 * 2 - 1
-        self.height = height // 2 * 2 - 1
-        self.cells = [[True for x in range(self.width)] for y in range(self.height)]
+    def __init__(self, width):
+        self.width = 2 * width + 1 # // 2 * 2 - 1
+        self.height = 2 * width + 1 # // 2 * 2 - 1
+        self.cells = [["#" for x in range(self.width)] for y in range(self.height)]
 
     def display(self):
         for i in range(self.width):
@@ -14,10 +14,7 @@ class Maze:
             print("\n")
 
     def set_path(self, x, y):
-        self.cells[y][x] = False
-
-    def set_walls(self, x, y):
-        self.cells[y][x] = True
+        self.cells[y][x] = "."
 
     def is_wall(self, x, y):
         if 0 <= x < self.width and 0 <= y < self.height:
@@ -26,7 +23,7 @@ class Maze:
             return "."
 
     def is_visited(self, x, y):
-        if self.cells[y][x] == "":
+        if self.cells[y][x] == "#":
             return False
         else:
             return True
@@ -41,22 +38,12 @@ class Maze:
             node_y = y + (movement[1] * 2)
             link_cells_x = x + movement[0]
             link_cells_y = y + movement[1]
-            self.set_path(link_cells_x, link_cells_y)
-            self.create_maze(node_x, node_y)
+            if 0 <= node_x < self.width and 0 <= node_y < self.width and self.is_visited(node_x, node_y) is False:
+                self.set_path(link_cells_x, link_cells_y)
+                self.create_maze(node_x, node_y)
         return
 
-    def __str__(self):
-        string = ""
-        conv = {
-            True: "#",
-            False: "."
-        }
-        for y in range(self.height):
-            for x in range(self.width):
-                string += conv[self.cells[y][x]]
-            string += "\n"
-        return string
 
-
-X = Maze(10, 10)
+X = Maze(3)
+X.create_maze(0, 0)
 Maze.display(X)
