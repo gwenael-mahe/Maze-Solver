@@ -3,13 +3,14 @@ import random
 
 class Maze:
     def __init__(self, width):
-        self.width = 2 * width + 1 # // 2 * 2 - 1
-        self.height = 2 * width + 1 # // 2 * 2 - 1
+        self.width = 2 * width + 1  # // 2 * 2 - 1
+        self.height = 2 * width + 1     # // 2 * 2 - 1
         self.cells = [["#" for x in range(self.width)] for y in range(self.height)]
         self.cells[0][0] = "."
         self.cells[0][1] = "."
         self.cells[self.width - 1][self.height - 2] = "."
         self.cells[self.width - 1][self.height - 1] = "."
+
     def display(self):
         for i in range(self.width):
             for j in range(self.height):
@@ -47,6 +48,6 @@ class Maze:
         return
 
 
-X = Maze(5)
+X = Maze(4)
 X.create_maze(1, 1)
 Maze.display(X)
