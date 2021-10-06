@@ -1,5 +1,4 @@
 class Directions:
-
     # 1, 0  sud
     #-1, 0  north
     # 0, 1  est
