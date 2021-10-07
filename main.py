@@ -14,10 +14,9 @@ def main():
     # Use a breakpoint in the code line below to debug your script.
     try:
         print(demands_the_name())
-        #print(mazes.initial_solver_array()[0][0][0])
-        #instancement
         dir=Directions()
         print(dir.array_direction[1][1])
+
         mazes.output_file(mazes.initial_solver_array())
 
 
