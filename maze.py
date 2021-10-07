@@ -6,6 +6,9 @@ class Maze:
         self.width = 2 * width + 1  # // 2 * 2 - 1
         self.height = 2 * width + 1     # // 2 * 2 - 1
         self.cells = [["0" for x in range(self.width)] for y in range(self.height)]
+        #self.recursive_backtrack(1, 1)
+        self.kruskal()
+        #self.set_walls()
         self.cells[0][0] = "."
         self.cells[self.width - 1][self.height - 1] = "."
         rand = random.randint(1, 2)
@@ -18,8 +21,6 @@ class Maze:
             self.cells[self.width - 1][self.height - 2] = "."
         else:
             self.cells[self.width - 2][self.height - 1] = "."
-        self.recursive_backtrack(1, 1)
-        self.set_walls()
 
     def display(self):
         for i in range(self.width):
@@ -71,18 +72,24 @@ class Maze:
         return True
 
     def kruskal(self):
-        while self.all_visited() is False:
-            x = random.randint(0, self.width - 1)
-            y = random.randint(0, self.height - 1)
+        for i in range(self.width):
+            for j in range(self.height):
+                if i % 2 == 0 or j % 2 == 0:
+                    self.cells[j][i] = "#"
+                else:
+                    self.cells[j][i] = "."
+ #       while self.all_visited() is False:
+ #           x = random.randint(0, self.width - 1)
+ #           y = random.randint(0, self.height - 1)
 
-            directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
-            random.shuffle(directions)
-            while len(directions) > 0:
-                movement = directions.pop()
-                node_x = x + (movement[0] * 2)
-                node_y = y + (movement[1] * 2)
-                link_cells_x = x + movement[0]
-                link_cells_y = y + movement[1]
+ #           directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+ #           random.shuffle(directions)
+ #           while len(directions) > 0:
+ #               movement = directions.pop()
+ #               node_x = x + (movement[0] * 2)
+ #               node_y = y + (movement[1] * 2)
+ #               link_cells_x = x + movement[0]
+ #               link_cells_y = y + movement[1]
 
 
 X = Maze(4)
