@@ -5,3 +5,9 @@ def print_file():
         fo.close()
 
     return 0
+
+
+def def_B():
+    return 0
+    #todo
+#end def_B

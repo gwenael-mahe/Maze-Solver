@@ -4,19 +4,18 @@ from numpy import chararray
 
 print('the vesion numpy is:', np.__version__)
 
-
 def definition_of_dimention():
     s_string=input("enter a dimention of labyrinth\n")
     return int(s_string,10)
 
-def initial_solver_array():
+def initial_solver_array(n):
     try:
-        n=definition_of_dimention()
+
         print(type(n))
         A=np.empty((4,n,n),dtype=chararray,order='F')
         #note the column priority as Fortran 90
 
-        return A
+        return (A,n)
     except ImportError:
         print("founded error in main_solver")
     #EndTry
@@ -38,5 +37,5 @@ def output_file(A):
 
 def temporary_chemin():
     #todo
-    #output in array []   
+    #output in array []
     return 0
