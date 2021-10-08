@@ -106,20 +106,23 @@ class Maze:
                 node_y = y + (movement[1] * 2)
                 link_cells_x = x + movement[0]
                 link_cells_y = y + movement[1]
-                if 0 < node_x < self.width and 0 < node_y < self.width:
-                    self.set_path(link_cells_x, link_cells_y)
-                    self.set_visited(x, y)
-                    self.set_visited(node_x, node_y)
+                if 0 < node_x < self.width - 1 and 0 < node_y < self.width - 1:
+                    if self.cells[y][x] != self.cells[node_y][node_x]:
+                        self.set_path(link_cells_x, link_cells_y)
+                        self.set_visited(x, y)
+                        self.set_visited(node_x, node_y)
                     if self.cells[y][x] > self.cells[node_y][node_x]:
+                        tmp = self.cells[y][x]
                         for i in range(self.width):
                             for j in range(self.width):
-                                if self.cells[j][i] == self.cells[y][x]:
+                                if self.cells[j][i] == tmp:
                                     self.cells[j][i] = self.cells[node_y][node_x]
                         break
                     elif self.cells[y][x] < self.cells[node_y][node_x]:
+                        tmp = self.cells[node_y][node_x]
                         for i in range(self.width):
                             for j in range(self.width):
-                                if self.cells[j][i] == self.cells[node_y][node_x]:
+                                if self.cells[j][i] == tmp:
                                     self.cells[j][i] = self.cells[y][x]
                         break
         for i in range(self.width):
