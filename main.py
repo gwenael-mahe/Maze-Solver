@@ -23,6 +23,8 @@ def main():
 
         print(motor_fleches.int_random(mazes.initial_solver_array(n)[1]))
 
+        n=4
+        print(dir.array_coordonnes(n))
 
     except ImportError:
         print("founded error in main")

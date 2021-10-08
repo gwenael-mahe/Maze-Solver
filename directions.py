@@ -9,18 +9,25 @@ class Directions:
 
 
     def array_coordonnes(n):
-        B_ARRAY=np.empty((n*n,3),dtype=int,order='F')
+
+        nodes=n*n
+        B_ARRAY=np.zeros((n,7),dtype=int,order='F')
         k=0
         i: int=0
         while(i<n):
-                # i-eme column
-                B_ARRAY[i][1]=i
+            # i-eme column
+            B_ARRAY[i][1]=i
             j=0
             while(j<n):
                 # id
                 B_ARRAY[i][0] = k
                 # j-eme line
                 B_ARRAY[i][2] = j
+                B_ARRAY[i][3] = 1
+                B_ARRAY[i][4] = 1
+                B_ARRAY[i][5] = 1
+                B_ARRAY[i][6] = 1
+
                 j=j+1
                 k=k+1
             #end_while_2
