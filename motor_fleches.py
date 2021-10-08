@@ -11,6 +11,8 @@ def move_random():
 
 
 def int_random(n):
-    a = random.randint(0,n)
+
+    a = random.randint(0,n*n)
     #todo
+
     return a

@@ -37,5 +37,6 @@ def output_file(A):
 
 def temporary_chemin():
     #todo
+    
     #output in array []
     return 0
