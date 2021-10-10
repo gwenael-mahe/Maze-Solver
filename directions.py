@@ -1,43 +1,73 @@
 import numpy as np
 
+
 class Directions:
     # 1, 0  sud
-    #-1, 0  north
+    # -1, 0  north
     # 0, 1  est
     # 0,-1  ouest
-    array_direction=[[1,0],[-1,0],[0,1],[0,-1]]
+    array_direction = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 
+    def array_coordonnes(self, n: int):
 
-    def array_coordonnes(n):
+        B_ARRAY = np.zeros((7, n, n), dtype=int, order='F')
+        k: int = 0
+        i: int = 0
+        j: int = 0
 
-        nodes=n*n
-        B_ARRAY=np.zeros((n,7),dtype=int,order='F')
-        k=0
-        i: int=0
-        while(i<n):
-            # i-eme column
-            B_ARRAY[i][1]=i
-            j=0
-            while(j<n):
-                # id
-                B_ARRAY[i][0] = k
+        i = 0
+        while (i < n):
+            B_ARRAY[2][i][j] = i
+            while (True):
                 # j-eme line
-                B_ARRAY[i][2] = j
-                B_ARRAY[i][3] = 1
-                B_ARRAY[i][4] = 1
-                B_ARRAY[i][5] = 1
-                B_ARRAY[i][6] = 1
+                B_ARRAY[1][i][j] = j
 
-                j=j+1
-                k=k+1
-            #end_while_2
-            i =i + 1
-        #end_while_1
+                if (j == 0) :
+                    # arret ouest
+                    B_ARRAY[3][i][j] = 2
+                else:
+                    B_ARRAY[3][i][j] = 1
+
+                if (i == 0):
+                    # arret north
+                    B_ARRAY[4][i][j] = 2
+                else:
+                    B_ARRAY[4][i][j] = 1
+
+                if(j == n-1):
+                    # arret est
+                    B_ARRAY[5][i][j] = 2
+                else:
+                    # arret est
+                    B_ARRAY[5][i][j] = 1
+
+                if(i == n-1):
+                    # south
+                    B_ARRAY[6][i][j] = 2
+                else:
+                    # south
+                    B_ARRAY[6][i][j] = 1
+
+                # id of node
+                B_ARRAY[0][i][j] = k
+
+                j = j + 1
+                k = k + 1
+                if (j >= n):
+
+                    break
+            # end_while_2
+
+            i = i + 1
+
+            j=0
+        # end_while_1
         return B_ARRAY
+    # end array direction
 
-    def converter_direction(int_random):
+
+def move_direction(num_random_arrets):
+    # case 0:
 
 
-        #case 0:
-
-        return -1
+    return -1

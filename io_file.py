@@ -1,13 +1,11 @@
 def print_file():
-
-    fd = 'labyrhinth.txt'
-    with open (fd,'w+') as fo:
+    fd: str = 'labyrinth.txt'
+    with open(fd, 'w+') as fo:
         fo.close()
-
     return 0
 
 
-def def_B():
+def def_b():
     return 0
-    #todo
-#end def_B
+    # todo
+# end def_B
