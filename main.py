@@ -21,12 +21,12 @@ def main():
 
         mazes.output_file(mazes.initial_solver_array(n)[0])
 
-        print(motor_fleches.int_random(mazes.initial_solver_array(n)[1]))
+       # print(motor_fleches.int_random(mazes.initial_solver_array(n)[1]))
 
         print(n)
-
+        # print(dir.array_coordonnes(n))
         det = Detection(0, 0)
-        det.arrets_num_random(dir.array_coordonnes(n))
+        print(det.num_random_arrets(dir.array_coordonnes(n), motor_fleches.int_random(det.arrets_num_random(dir.array_coordonnes(n)))))
 
 
 

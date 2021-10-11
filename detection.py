@@ -1,8 +1,7 @@
 import numpy as np
-
+import motor_fleches
 
 class Detection:
-
 
     j: int
     i: int
@@ -21,49 +20,52 @@ class Detection:
         self.i = i
         self.j = j
 
-    def arrets_num_random(self, B_ARRAY: int):
+    def arrets_num_random(self, B_ARRAY):
         # found the number of arrets
         print(self.i, self.j)
-        k: int = 0
+        k: int = 3
         sum: int = 0
-        while (k < B_ARRAY.shape[1]):
-            sum = sum + 1
+        print(B_ARRAY.shape[0])
+        while (k < B_ARRAY.shape[0]):
+            if (B_ARRAY[k][self.i][self.j]==1):
+                sum = sum + 1
+            k = k + 1
+        return sum
 
-
-    def num_random_arrets(self, B_ARRAY: int, int_random: int):
+    def num_random_arrets(self, int_random, B_ARRAY):
         # olny four directionws
+        int_random=3
+        #only one dummy argument in switcher??
         switcher = {
-            0:
-                choix_direction(0),
+                0: lambda: self.choix_direction(B_ARRAY,0),
 
-            1:
-                choix_direction(1),
+                1: lambda: self.choix_direction(B_ARRAY,1),
 
-            2:
-                choix_direction(2),
+                2: lambda: self.choix_direction(B_ARRAY,2),
 
-            3:
-                choix_direction(3),
-        }
-        return switcher.get(int_random, "not found selection")
+                3: lambda: self.choix_direction(B_ARRAY,3),
+            }
+        return switcher.get(int_random, "not found selectio")
 
-def choix_direction(self, B_ARRAY: int, random: int):
-    k: int = 3
-    r: int = 0
-    while(k<B_ARRAY.shape[1] and r == random):
+    def choix_direction(self, B_ARRAY: int, random: int):
+        k: int = 3
+        r: int = 0
+        print(B_ARRAY.shape[0])
+        while(k<B_ARRAY.shape[0] and r < random):
+            if(B_ARRAY[k][self.i][self.j]==1):
+                r = r + 1
+            k = k + 1
+        if (k==3):
+            # ouest
+            return (0,-1)
+        elif (k==4):
+            # north
+            return (-1,0)
+        elif (k==5):
+            # est
+            return (0,1)
+        else:
+            # south
+            return (1,0)
 
-        if(B_ARRAY[k][self.i][self.j]==1):
-            r = r + 1
-
-        k = k + 1
-
-    if (k==3):
-        dir='o'
-    elif (k==4):
-        dir = 'n'
-    elif (k==5):
-        dir = 'e'
-    else:
-        dir = 's'
-
-    return dir
+        # return dir

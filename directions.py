@@ -17,10 +17,10 @@ class Directions:
 
         i = 0
         while (i < n):
-            B_ARRAY[2][i][j] = i
+            B_ARRAY[1][i][j] = i
             while (True):
                 # j-eme line
-                B_ARRAY[1][i][j] = j
+                B_ARRAY[2][i][j] = j
 
                 if (j == 0) :
                     # arret ouest
@@ -68,6 +68,4 @@ class Directions:
 
 def move_direction(num_random_arrets):
     # case 0:
-
-
     return -1
