@@ -76,13 +76,15 @@ class Maze:
         return
 
     def all_visited(self):
-        if len(self.visited) == self.width * self.width:
-            return True
-        else:
-            return False
+        for i in range(self.width):
+            for j in range(self.width):
+                if self.cells[j][i] != "#" and self.cells[j][i] != 1:
+                    return False
+        return True
 
     def kruskal(self):
         step = 1
+        sommet = {}
         for i in range(self.width):
             for j in range(self.width):
                 if i % 2 == 0 or j % 2 == 0:
@@ -90,8 +92,9 @@ class Maze:
                     self.set_visited(i, j)
                 else:
                     self.cells[j][i] = step
+                    sommet[step] = [(i, j)]
                     step += 1
-        while self.all_visited() is False:
+        while self.all_visited() is False and len(sommet) != 1:
             x = 0
             y = 0
             while x % 2 == 0:
@@ -113,6 +116,8 @@ class Maze:
                         self.set_visited(node_x, node_y)
                     if self.cells[y][x] > self.cells[node_y][node_x]:
                         tmp = self.cells[y][x]
+                        sommet[self.cells[node_y][node_x]].append((x, y))
+                        del sommet[self.cells[y][x]]
                         for i in range(self.width):
                             for j in range(self.width):
                                 if self.cells[j][i] == tmp:
@@ -120,6 +125,8 @@ class Maze:
                         break
                     elif self.cells[y][x] < self.cells[node_y][node_x]:
                         tmp = self.cells[node_y][node_x]
+                        sommet[self.cells[y][x]].append((node_x, node_y))
+                        del sommet[self.cells[node_y][node_x]]
                         for i in range(self.width):
                             for j in range(self.width):
                                 if self.cells[j][i] == tmp:
@@ -131,5 +138,5 @@ class Maze:
                     self.cells[j][i] = "."
 
 
-X = Maze(4)
+X = Maze(8)
 Maze.display(X)
