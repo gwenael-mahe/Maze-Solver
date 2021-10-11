@@ -1,5 +1,8 @@
 import numpy as np
 
+#import classes different to simples files in outside
+from detection import Detection
+
 
 class Directions:
     # 1, 0  sud
@@ -57,15 +60,28 @@ class Directions:
 
                     break
             # end_while_2
-
             i = i + 1
-
             j=0
         # end_while_1
         return B_ARRAY
     # end array direction
 
 
-def move_direction(num_random_arrets):
-    # case 0:
-    return -1
+    def move_direction(B_ARRAY, increasing_vert, increasing_hori):
+        print(increasing_vert,increasing_hori)
+
+        det=Detection()
+
+
+        #position_update
+        print(det.set_position())
+
+
+
+
+        #new_position_update
+        det.set_position(increasing_vert,increasing_hori)
+
+
+
+        return B_ARRAY

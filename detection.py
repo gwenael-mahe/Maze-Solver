@@ -1,3 +1,5 @@
+from unittest import case
+
 import numpy as np
 import motor_fleches
 
@@ -22,6 +24,7 @@ class Detection:
 
     def arrets_num_random(self, B_ARRAY):
         # found the number of arrets
+        # range 1-n
         print(self.i, self.j)
         k: int = 3
         sum: int = 0
@@ -31,30 +34,44 @@ class Detection:
                 sum = sum + 1
             k = k + 1
         return sum
-
+    """
     def num_random_arrets(self, int_random, B_ARRAY):
         # olny four directionws
         int_random=3
         #only one dummy argument in switcher??
-        switcher = {
-                0: lambda: self.choix_direction(B_ARRAY,0),
+        switch ={
+            0:
+                self.choix_direction(B_ARRAY,0),
 
-                1: lambda: self.choix_direction(B_ARRAY,1),
+            1:
+                self.choix_direction(B_ARRAY,1),
 
-                2: lambda: self.choix_direction(B_ARRAY,2),
+            2:
+                self.choix_direction(B_ARRAY,2),
 
-                3: lambda: self.choix_direction(B_ARRAY,3),
-            }
-        return switcher.get(int_random, "not found selectio")
+            3:
+                self.choix_direction(B_ARRAY,3),
+        }
+        return switch.get(int_random, "not found selectio")  
+    """
 
     def choix_direction(self, B_ARRAY: int, random: int):
         k: int = 3
-        r: int = 0
+        r: int = -1
+        print(random)
         print(B_ARRAY.shape[0])
-        while(k<B_ARRAY.shape[0] and r < random):
+        # to improuve todo
+        random=3
+        while(True):
+            # detecter of arretes and limites of labyritnhe
             if(B_ARRAY[k][self.i][self.j]==1):
                 r = r + 1
+            # in the case the lim sup of random choix is attempt
+            if(r>=random and k<B_ARRAY.shape[0]-1):
+                break
             k = k + 1
+        #end_if
+
         if (k==3):
             # ouest
             return (0,-1)
