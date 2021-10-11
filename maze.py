@@ -78,7 +78,7 @@ class Maze:
     def all_visited(self):
         for i in range(self.width):
             for j in range(self.width):
-                if self.cells[j][i] != "#" and self.cells[j][i] != 1:
+                if self.is_visited(i, j) is False:
                     return False
         return True
 
@@ -116,7 +116,8 @@ class Maze:
                         self.set_visited(node_x, node_y)
                     if self.cells[y][x] > self.cells[node_y][node_x]:
                         tmp = self.cells[y][x]
-                        sommet[self.cells[node_y][node_x]].append((x, y))
+                        for i in sommet[self.cells[y][x]]:
+                            sommet[self.cells[node_y][node_x]].append(i)
                         del sommet[self.cells[y][x]]
                         for i in range(self.width):
                             for j in range(self.width):
@@ -125,7 +126,8 @@ class Maze:
                         break
                     elif self.cells[y][x] < self.cells[node_y][node_x]:
                         tmp = self.cells[node_y][node_x]
-                        sommet[self.cells[y][x]].append((node_x, node_y))
+                        for i in sommet[self.cells[node_y][node_x]]:
+                            sommet[self.cells[y][x]].append(i)
                         del sommet[self.cells[node_y][node_x]]
                         for i in range(self.width):
                             for j in range(self.width):
@@ -138,5 +140,5 @@ class Maze:
                     self.cells[j][i] = "."
 
 
-X = Maze(8)
+X = Maze(14)
 Maze.display(X)
