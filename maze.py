@@ -23,16 +23,17 @@ class Maze:
             self.cells[self.width - 1][self.width - 2] = "."
         else:
             self.cells[self.width - 2][self.width - 1] = "."
+        self.visited.clear()
 
     def display(self):
-        fichier = open("data.txt", "w")
+        file = open("data.txt", "w")
         for i in range(self.width):
             for j in range(self.width):
-                fichier.write(self.cells[j][i])
+                file.write(self.cells[j][i])
                 print(self.cells[j][i], end=' ')
             print("\n")
-            fichier.write("\n")
-        fichier.close()
+            file.write("\n")
+        file.close()
 
     def set_path(self, x, y):
         self.cells[y][x] = "."
@@ -84,7 +85,7 @@ class Maze:
 
     def kruskal(self):
         step = 1
-        sommet = {}
+        node = {}
         for i in range(self.width):
             for j in range(self.width):
                 if i % 2 == 0 or j % 2 == 0:
@@ -92,9 +93,9 @@ class Maze:
                     self.set_visited(i, j)
                 else:
                     self.cells[j][i] = step
-                    sommet[step] = [(i, j)]
+                    node[step] = [(i, j)]
                     step += 1
-        while self.all_visited() is False and len(sommet) != 1:
+        while self.all_visited() is False and len(node) != 1:
             x = 0
             y = 0
             while x % 2 == 0:
@@ -116,9 +117,9 @@ class Maze:
                         self.set_visited(node_x, node_y)
                     if self.cells[y][x] > self.cells[node_y][node_x]:
                         tmp = self.cells[y][x]
-                        for i in sommet[self.cells[y][x]]:
-                            sommet[self.cells[node_y][node_x]].append(i)
-                        del sommet[self.cells[y][x]]
+                        for i in node[self.cells[y][x]]:
+                            node[self.cells[node_y][node_x]].append(i)
+                        del node[self.cells[y][x]]
                         for i in range(self.width):
                             for j in range(self.width):
                                 if self.cells[j][i] == tmp:
@@ -126,9 +127,9 @@ class Maze:
                         break
                     elif self.cells[y][x] < self.cells[node_y][node_x]:
                         tmp = self.cells[node_y][node_x]
-                        for i in sommet[self.cells[node_y][node_x]]:
-                            sommet[self.cells[y][x]].append(i)
-                        del sommet[self.cells[node_y][node_x]]
+                        for i in node[self.cells[node_y][node_x]]:
+                            node[self.cells[y][x]].append(i)
+                        del node[self.cells[node_y][node_x]]
                         for i in range(self.width):
                             for j in range(self.width):
                                 if self.cells[j][i] == tmp:
@@ -139,6 +140,18 @@ class Maze:
                 if self.cells[j][i] != "#":
                     self.cells[j][i] = "."
 
+    def recursive_backtrack_resolution(self, x, y):
+        if self.visited[-1] == (self.width - 1, self.width - 1):
+            for i in range(self.width):
+                for j in range(self.width):
+                    if self.is_visited(i, j) is True:
+                        self.cells[j][i] = "0"
+            return
+        elif self.cells[y][x] == "#":
+            return
+        else:
+            self.set_visited(x, y)
 
-X = Maze(45)
+
+X = Maze(4)
 Maze.display(X)
