@@ -140,5 +140,5 @@ class Maze:
                     self.cells[j][i] = "."
 
 
-X = Maze(14)
+X = Maze(45)
 Maze.display(X)
