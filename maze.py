@@ -4,7 +4,7 @@ import random
 class Maze:
     def __init__(self, width):
         self.width = 2 * width + 1  # // 2 * 2 - 1
-        self.height = 2 * width + 1     # // 2 * 2 - 1
+        self.height = 2 * width + 1  # // 2 * 2 - 1
         self.cells = [["0" for x in range(self.width)] for y in range(self.height)]
         self.cells[0][0] = "."
         self.cells[self.width - 1][self.height - 1] = "."
@@ -26,6 +26,9 @@ class Maze:
             for j in range(self.height):
                 print(self.cells[j][i], end=' ')
             print("\n")
+
+    def get_cells(self):
+        return self.cells
 
     def set_path(self, x, y):
         self.cells[y][x] = "."
@@ -73,17 +76,31 @@ class Maze:
     def kruskal(self):
         while self.all_visited() is False:
             x = random.randint(0, self.width - 1)
-            y = random.randint(0, self.height - 1)
-
             directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
             random.shuffle(directions)
+            deplacement = directions.pop()
+            y = x + (deplacement[0] * 2)
             while len(directions) > 0:
-                movement = directions.pop()
-                node_x = x + (movement[0] * 2)
-                node_y = y + (movement[1] * 2)
-                link_cells_x = x + movement[0]
-                link_cells_y = y + movement[1]
+                y = False
+
+
+def solve_maze(maze, position, N):
+    if position == (N - 1, N - 1):
+        return [(N - 1, N - 1)]
+    x, y = position
+    print(maze[x + 1][y])
+    if x + 1 < N and maze[x + 1][y] == '.':
+        a = solve_maze(maze, (x + 1, y), N)
+        if a != None:
+            return [(x, y)] + a
+
+    if y + 1 < N and Maze[x][y + 1] == '.':
+        b = solve_maze(maze, (x, y + 1), N)
+        if b != None:
+            return [(x, y)] + b
 
 
 X = Maze(4)
-Maze.display(X)
+print(X.get_cells())
+# Maze.display(X)
+print(solve_maze(X.get_cells(), [0, 0], 9))
