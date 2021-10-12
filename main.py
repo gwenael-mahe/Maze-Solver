@@ -26,14 +26,17 @@ def main():
         print(n)
         # print(dir.array_coordonnes(n))
         det = Detection(0, 0)
+
+        det.pointeuse_arrets_direction(dir.array_coordonnes(n))
+
         print("first increasing ouest_est:_"+str(det.choix_direction(dir.array_coordonnes(n),motor_fleches.int_random(det.arrets_num_random(dir.array_coordonnes(n))))[0]))
 
         print("second increasing noth_sud:_"+str(det.choix_direction(dir.array_coordonnes(n),motor_fleches.int_random(det.arrets_num_random(dir.array_coordonnes(n))))[1]))
 
 
-        dir.move_direction(dir.array_coordonnes(n),
-        det.choix_direction(dir.array_coordonnes(n),motor_fleches.int_random(det.arrets_num_random(dir.array_coordonnes(n))))[0],
-        det.choix_direction(dir.array_coordonnes(n),motor_fleches.int_random(det.arrets_num_random(dir.array_coordonnes(n))))[1])
+        # dir.move_direction(dir.array_coordonnes(n),
+        # det.choix_direction(dir.array_coordonnes(n),motor_fleches.int_random(det.arrets_num_random(dir.array_coordonnes(n))))[0],
+        # det.choix_direction(dir.array_coordonnes(n),motor_fleches.int_random(det.arrets_num_random(dir.array_coordonnes(n))))[1])
 
     except ImportError:
         print("founded error in main")

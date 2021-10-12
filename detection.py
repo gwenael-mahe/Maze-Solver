@@ -61,13 +61,13 @@ class Detection:
         print(random)
         print(B_ARRAY.shape[0])
         # to improuve todo
-        random=3
+        random=1
         while(True):
             # detecter of arretes and limites of labyritnhe
             if(B_ARRAY[k][self.i][self.j]==1):
                 r = r + 1
             # in the case the lim sup of random choix is attempt
-            if(r>=random and k<B_ARRAY.shape[0]-1):
+            if(r>=random and k>=(B_ARRAY.shape[0]-1)):
                 break
             k = k + 1
         #end_if
@@ -86,3 +86,44 @@ class Detection:
             return (1,0)
 
         # return dir
+
+
+
+    def pointeuse_arrets_direction(self,B_ARRAY: int):
+
+        # simplified array direction
+        C_ARRAY=np.zeros((2,4),dtype=int,order='F')
+        sum: int = 0
+        k: int = 3
+        i: int = 0
+        while(k<B_ARRAY.shape[0]):
+            # arrets or limites 1,2
+            C_ARRAY[1][i]=B_ARRAY[k][self.i][self.j]
+            # directions 3,4,5,6
+            C_ARRAY[0][i]=k
+
+            if(C_ARRAY[1][i]==1):
+                sum=sum+1
+            # end_if
+            k = k + 1
+            i = i + 1
+        #end_loop
+
+        # calling random function for  indicate direction
+        # one calling of int_random subroutine
+        random = motor_fleches.int_random(sum)
+
+        i: int = -1
+        k: int = 0
+        while(i < random):
+            # only direction with arrets 1,1
+            if(C_ARRAY[1][k]==1):
+                i = i + 1
+            # end_if
+            return C_ARRAY[0][k - 1]
+            k = k + 1
+        #end_while
+
+
+
+    #end_function_pointeuse_direction
