@@ -3,8 +3,8 @@ from unittest import case
 import numpy as np
 import motor_fleches
 
-class Detection:
 
+class Detection:
     j: int
     i: int
 
@@ -30,10 +30,11 @@ class Detection:
         sum: int = 0
         print(B_ARRAY.shape[0])
         while (k < B_ARRAY.shape[0]):
-            if (B_ARRAY[k][self.i][self.j]==1):
+            if (B_ARRAY[k][self.i][self.j] == 1):
                 sum = sum + 1
             k = k + 1
         return sum
+
     """
     def num_random_arrets(self, int_random, B_ARRAY):
         # olny four directionws
@@ -55,10 +56,11 @@ class Detection:
         return switch.get(int_random, "not found selectio")  
     """
 
-    def choix_direction(self, B_ARRAY: int, random: int):
-        k: int = 3
-        r: int = -1
-        print(random)
+    def choix_direction(self, B_ARRAY: int):
+
+        k: int = 0
+        """r: int = -1"""
+        """print(random)
         print(B_ARRAY.shape[0])
         # to improuve todo
         random=1
@@ -71,43 +73,44 @@ class Detection:
                 break
             k = k + 1
         #end_if
+        """
 
-        if (k==3):
+        k = self.pointeuse_arrets_direction(B_ARRAY)
+
+        if (k == 3):
             # ouest
-            return (0,-1)
-        elif (k==4):
+            return (0, -1)
+        elif (k == 4):
             # north
-            return (-1,0)
-        elif (k==5):
+            return (-1, 0)
+        elif (k == 5):
             # est
-            return (0,1)
+            return (0, 1)
         else:
             # south
-            return (1,0)
+            return (1, 0)
 
         # return dir
 
-
-
-    def pointeuse_arrets_direction(self,B_ARRAY: int):
+    def pointeuse_arrets_direction(self, B_ARRAY: int):
 
         # simplified array direction
-        C_ARRAY=np.zeros((2,4),dtype=int,order='F')
+        C_ARRAY = np.zeros((2, 4), dtype=int, order='F')
         sum: int = 0
         k: int = 3
         i: int = 0
-        while(k<B_ARRAY.shape[0]):
+        while (k < B_ARRAY.shape[0]):
             # arrets or limites 1,2
-            C_ARRAY[1][i]=B_ARRAY[k][self.i][self.j]
+            C_ARRAY[1][i] = B_ARRAY[k][self.i][self.j]
             # directions 3,4,5,6
-            C_ARRAY[0][i]=k
+            C_ARRAY[0][i] = k
 
-            if(C_ARRAY[1][i]==1):
-                sum=sum+1
+            if (C_ARRAY[1][i] == 1):
+                sum = sum + 1
             # end_if
             k = k + 1
             i = i + 1
-        #end_loop
+        # end_loop
 
         # calling random function for  indicate direction
         # one calling of int_random subroutine
@@ -115,15 +118,36 @@ class Detection:
 
         i: int = -1
         k: int = 0
-        while(i < random):
+        while (i < random):
             # only direction with arrets 1,1
-            if(C_ARRAY[1][k]==1):
+            if (C_ARRAY[1][k] == 1):
                 i = i + 1
             # end_if
             return C_ARRAY[0][k - 1]
             k = k + 1
-        #end_while
+        # end_while
 
+    # end_function_point_direction
 
+    def indicate_arrets(self, COMPARE_ARRAY):
 
-    #end_function_pointeuse_direction
+        print(COMPARE_ARRAY)
+
+        #record of noued already visited
+        self.indicate_noeud()
+
+        return 0
+
+    # End_function_erase_arrets
+
+    def arrets_pile(self):
+        # le arrets dejà visité
+        # todo
+        return 0
+
+    # End_function_arrests_pile
+
+    def indicate_noeud(self):
+        # todo
+        return 0
+    # End_function_indicate_noeud

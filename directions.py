@@ -67,21 +67,33 @@ class Directions:
     # end array direction
 
 
-    def move_direction(B_ARRAY, increasing_vert, increasing_hori):
-        print(increasing_vert,increasing_hori)
+    def move_direction(self, B_ARRAY: int, COO_ARRAY: int):
 
-        det=Detection()
+        print("increasing_move_coordonnes_:_"+str(COO_ARRAY))
+
+        det=Detection(0,0)
+
+        # initial_position
+        # 0 dim for initial position
+        # 1 dim for increasing position
+        # 2 dim for finally position coordoonne
+        # COO_ARRAY[2][3]
+        # change to COO_ARRAY[0][0]=det.get_position()[0]
+        init_i=det.get_position()[0]
+        init_j=det.get_position()[1]
 
 
-        #position_update
-        print(det.set_position())
+        # increasing position
+        actual_i=det.get_position()[0]+COO_ARRAY[0]
+        actual_j=det.get_position()[1]+COO_ARRAY[1]
+        # position_update
+        det.set_position(actual_i, actual_j)
+        #
+        print("actually_pos_:_"+str(det.get_position()[0])+"_"+str(det.get_position()[1]))
 
+        print(COO_ARRAY)
 
+        # return an array with elements : B_ARRAY, initial position, actual position
+        return (B_ARRAY, COO_ARRAY, det.get_position())
 
-
-        #new_position_update
-        det.set_position(increasing_vert,increasing_hori)
-
-
-
-        return B_ARRAY
+    # End_function_move_direction
