@@ -1,5 +1,7 @@
 import random
+import sys
 
+sys.setrecursionlimit(15000)
 
 class Maze:
     def __init__(self, width):
