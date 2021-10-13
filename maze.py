@@ -84,23 +84,27 @@ class Maze:
                 y = False
 
 
-def solve_maze(maze, position, N):
-    if position == (N - 1, N - 1):
-        return [(N - 1, N - 1)]
-    x, y = position
-    print(maze[x + 1][y])
-    if x + 1 < N and maze[x + 1][y] == '.':
-        a = solve_maze(maze, (x + 1, y), N)
-        if a != None:
-            return [(x, y)] + a
+def print_solution(sol):
+    file = open(input("veuillez rentrer le nom du fichier : "), "w")
+    for i in sol:
+        for j in i:
+            file.write(str(j) + " ", end="")
+        file.write("\n")
+    file.close()
 
-    if y + 1 < N and Maze[x][y + 1] == '.':
-        b = solve_maze(maze, (x, y + 1), N)
-        if b != None:
-            return [(x, y)] + b
+def solve_maze(maze, N):
+    sol = [[0 for j in range(N)] for i in range(N)]
+    if not solve_maze_recursive(maze, 0, 0, sol):
+        print("Il n'y a pas de solution.")
+        return False
+    print_solution(sol)
+    return True
+
+def solve_maze_recursive(maze, x, y, sol):
+    #test
 
 
 X = Maze(4)
 print(X.get_cells())
 # Maze.display(X)
-print(solve_maze(X.get_cells(), [0, 0], 9))
+# print(solve_maze(X.get_cells(), [0, 0], 9))
