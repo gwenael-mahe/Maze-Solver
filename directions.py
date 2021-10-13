@@ -1,6 +1,6 @@
 import numpy as np
 
-#import classes different to simples files in outside
+# import classes different to simples files in outside
 from detection import Detection
 
 
@@ -25,7 +25,7 @@ class Directions:
                 # j-eme line
                 B_ARRAY[2][i][j] = j
 
-                if (j == 0) :
+                if (j == 0):
                     # arret ouest
                     B_ARRAY[3][i][j] = 2
                 else:
@@ -37,14 +37,14 @@ class Directions:
                 else:
                     B_ARRAY[4][i][j] = 1
 
-                if(j == n-1):
+                if (j == n - 1):
                     # arret est
                     B_ARRAY[5][i][j] = 2
                 else:
                     # arret est
                     B_ARRAY[5][i][j] = 1
 
-                if(i == n-1):
+                if (i == n - 1):
                     # south
                     B_ARRAY[6][i][j] = 2
                 else:
@@ -57,43 +57,49 @@ class Directions:
                 j = j + 1
                 k = k + 1
                 if (j >= n):
-
                     break
             # end_while_2
             i = i + 1
-            j=0
+            j = 0
         # end_while_1
         return B_ARRAY
+
     # end array direction
 
+    def move_direction(self, B_ARRAY: int, DIR_ARRAY: int):
 
-    def move_direction(self, B_ARRAY: int, COO_ARRAY: int):
+        print("increasing_move_coordonnes_:_" + str(DIR_ARRAY))
 
-        print("increasing_move_coordonnes_:_"+str(COO_ARRAY))
+        COO_ARRAY = np.zeros((2, 3), dtype=int, order='F')
 
-        det=Detection(0,0)
+        det = Detection(0, 0)
 
         # initial_position
         # 0 dim for initial position
         # 1 dim for increasing position
-        # 2 dim for finally position coordoonne
-        # COO_ARRAY[2][3]
-        # change to COO_ARRAY[0][0]=det.get_position()[0]
-        init_i=det.get_position()[0]
-        init_j=det.get_position()[1]
+        # 2 dim for finally/actually position coordoonne
+        # COO_ARRAY[2][3] from
+        # det.get_position()[0]
+        COO_ARRAY[0][0] = det.get_position()[0]
+        COO_ARRAY[1][0] = det.get_position()[1]
+
+        #incrementeur of position
+        COO_ARRAY[0][1] = DIR_ARRAY[0]
+        COO_ARRAY[1][1] = DIR_ARRAY[1]
 
 
         # increasing position
-        actual_i=det.get_position()[0]+COO_ARRAY[0]
-        actual_j=det.get_position()[1]+COO_ARRAY[1]
+        # 2 dim for finally/actually position coordoonne
+        COO_ARRAY[0][2] = COO_ARRAY[0][0] + COO_ARRAY[0][1]
+        COO_ARRAY[1][2] = COO_ARRAY[1][0] + COO_ARRAY[1][1]
         # position_update
-        det.set_position(actual_i, actual_j)
+        det.set_position(COO_ARRAY[0][2], COO_ARRAY[1][2])
         #
-        print("actually_pos_:_"+str(det.get_position()[0])+"_"+str(det.get_position()[1]))
+        print("actually_pos_:_" + str(COO_ARRAY[0][2]) + "_" + str(COO_ARRAY[1][2]))
 
         print(COO_ARRAY)
 
         # return an array with elements : B_ARRAY, initial position, actual position
-        return (B_ARRAY, COO_ARRAY, det.get_position())
+        return (B_ARRAY, COO_ARRAY)
 
-    # End_function_move_direction
+    # End_function_move_direction&

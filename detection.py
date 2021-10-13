@@ -2,13 +2,19 @@ from unittest import case
 
 import numpy as np
 import motor_fleches
+import io_file
 
 
 class Detection:
+
     j: int
     i: int
+    det_noeuds = []
 
     # constructor
+
+    def __init__(self):
+        self.det_noeuds=[]
 
     def __init__(self, i: int, j: int):
         self.i = i
@@ -22,6 +28,13 @@ class Detection:
         self.i = i
         self.j = j
 
+
+    def get_list(self):
+        return self.det_noeuds
+
+    def set_list(self, noeud):
+        self.det_noeuds.append()
+
     def arrets_num_random(self, B_ARRAY):
         # found the number of arrets
         # range 1-n
@@ -32,6 +45,11 @@ class Detection:
         while (k < B_ARRAY.shape[0]):
             if (B_ARRAY[k][self.i][self.j] == 1):
                 sum = sum + 1
+                # la plus important fonction du programme :
+                # records pointeuse to direction noeuds
+                # sert pour records of noeuds pointes avec arrets
+                # et ne pas les choisir comme direction dans les actuelles positions suivantes
+                io_file.input_detection_noeuds(self.detected_noeud_by_direction(B_ARRAY, k, self.i, self.j))
             k = k + 1
         return sum
 
@@ -59,21 +77,6 @@ class Detection:
     def choix_direction(self, B_ARRAY: int):
 
         k: int = 0
-        """r: int = -1"""
-        """print(random)
-        print(B_ARRAY.shape[0])
-        # to improuve todo
-        random=1
-        while(True):
-            # detecter of arretes and limites of labyritnhe
-            if(B_ARRAY[k][self.i][self.j]==1):
-                r = r + 1
-            # in the case the lim sup of random choix is attempt
-            if(r>=random and k>=(B_ARRAY.shape[0]-1)):
-                break
-            k = k + 1
-        #end_if
-        """
 
         k = self.pointeuse_arrets_direction(B_ARRAY)
 
@@ -123,18 +126,22 @@ class Detection:
             if (C_ARRAY[1][k] == 1):
                 i = i + 1
             # end_if
-            return C_ARRAY[0][k - 1]
             k = k + 1
         # end_while
+
+        return C_ARRAY[0][k-1]
 
     # end_function_point_direction
 
     def indicate_arrets(self, COMPARE_ARRAY):
 
-        print(COMPARE_ARRAY)
+        # B_ARRAY
+        print(COMPARE_ARRAY[0])
+        # COO_ARRAY
+        print(COMPARE_ARRAY[1])
 
-        #record of noued already visited
-        self.indicate_noeud()
+        # output of record of noued already visited
+        io_file.output_detected_noeuds()
 
         return 0
 
@@ -142,12 +149,32 @@ class Detection:
 
     def arrets_pile(self):
         # le arrets dejà visité
+        # peut etre pas necessaire
         # todo
         return 0
 
     # End_function_arrests_pile
 
-    def indicate_noeud(self):
+    def input_detection_noeuds(noeud):
+        # todo
+        # append to list array one dimentional
+        return 0
+
+
+    def detected_noeud_by_direction(self, B_ARRAY, dir: int, i: int, j: int):
+
+        print(B_ARRAY)
+
         # todo
         return 0
     # End_function_indicate_noeud
+
+    def output_detected_noeuds():
+        return 0
+
+
+    def coord_by_noeud(self):
+        # todo
+        return 0
+    # end_function
+
