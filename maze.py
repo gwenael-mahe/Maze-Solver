@@ -6,9 +6,10 @@ class Maze:
         self.width = 2 * width + 1  # // 2 * 2 - 1
         self.cells = [["0" for x in range(self.width)] for y in range(self.width)]
         self.visited = []
-        # self.recursive_backtrack(1, 1)
-        self.kruskal()
-        # self.set_walls()
+        self.final_path = []
+        self.recursive_backtrack(1, 1)
+        # self.kruskal()
+        self.set_walls()
         self.cells[0][0] = "."
         self.cells[self.width - 1][self.width - 1] = "."
 
@@ -140,18 +141,46 @@ class Maze:
                 if self.cells[j][i] != "#":
                     self.cells[j][i] = "."
 
-    def recursive_backtrack_resolution(self, x, y):
-        if self.visited[-1] == (self.width - 1, self.width - 1):
-            for i in range(self.width):
-                for j in range(self.width):
-                    if self.is_visited(i, j) is True:
-                        self.cells[j][i] = "0"
+    def recursive_backtrack_resolution(self, position):
+        x, y = position
+        self.set_visited(x, y)
+        if position == (self.width - 1, self.width - 1):
+            self.final_path.append(position)
             return
-        elif self.cells[y][x] == "#":
+        if x + 1 < self.width and self.cells[y][x + 1] == '.' and self.is_visited(x + 1, y) is False:
+            self.recursive_backtrack_resolution((x + 1, y))
+            if (self.width - 1, self.width - 1) in self.final_path:
+                self.final_path.append(position)
             return
-        else:
-            self.set_visited(x, y)
+
+        if y + 1 < self.width and self.cells[y + 1][x] == '.' and self.is_visited(x, y + 1) is False:
+            self.recursive_backtrack_resolution((x, y + 1))
+            if (self.width - 1, self.width - 1) in self.final_path:
+                self.final_path.append(position)
+            return
+
+        if x - 1 < self.width and self.cells[y][x - 1] == '.' and self.is_visited(x - 1, y) is False:
+            self.recursive_backtrack_resolution((x - 1, y))
+            if (self.width - 1, self.width - 1) in self.final_path:
+                self.final_path.append(position)
+            return
+
+        if y - 1 < self.width and self.cells[y - 1][x] == '.' and self.is_visited(x, y - 1) is False:
+            self.recursive_backtrack_resolution((x, y - 1))
+            if (self.width - 1, self.width - 1) in self.final_path:
+                self.final_path.append(position)
+            return
+
+    def set_final_path(self):
+        for i in range(self.width):
+            for j in range(self.width):
+                if (i, j) in self.final_path:
+                    self.cells[j][i] = "0"
+        return True
 
 
-X = Maze(4)
-Maze.display(X)
+X = Maze(8)
+X.display()
+X.recursive_backtrack_resolution((0, 0))
+X.set_final_path()
+X.display()
