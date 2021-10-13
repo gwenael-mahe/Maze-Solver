@@ -1,5 +1,6 @@
 import random
-
+import sys
+sys.setrecursionlimit(15000)
 
 class Maze:
     def __init__(self, width):
@@ -147,29 +148,17 @@ class Maze:
         if position == (self.width - 1, self.width - 1):
             self.final_path.append(position)
             return
-        if x + 1 < self.width and self.cells[y][x + 1] == '.' and self.is_visited(x + 1, y) is False:
-            self.recursive_backtrack_resolution((x + 1, y))
-            if (self.width - 1, self.width - 1) in self.final_path:
-                self.final_path.append(position)
-            return
-
-        if y + 1 < self.width and self.cells[y + 1][x] == '.' and self.is_visited(x, y + 1) is False:
-            self.recursive_backtrack_resolution((x, y + 1))
-            if (self.width - 1, self.width - 1) in self.final_path:
-                self.final_path.append(position)
-            return
-
-        if x - 1 < self.width and self.cells[y][x - 1] == '.' and self.is_visited(x - 1, y) is False:
-            self.recursive_backtrack_resolution((x - 1, y))
-            if (self.width - 1, self.width - 1) in self.final_path:
-                self.final_path.append(position)
-            return
-
-        if y - 1 < self.width and self.cells[y - 1][x] == '.' and self.is_visited(x, y - 1) is False:
-            self.recursive_backtrack_resolution((x, y - 1))
-            if (self.width - 1, self.width - 1) in self.final_path:
-                self.final_path.append(position)
-            return
+        directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+        random.shuffle(directions)
+        while len(directions) > 0 and (self.width - 1, self.width - 1) not in self.final_path:
+            movement = directions.pop()
+            next_cells_x = x + movement[0]
+            next_cells_y = y + movement[1]
+            if next_cells_x < self.width and next_cells_y < self.width and self.cells[next_cells_y][next_cells_x] == '.'\
+                    and self.is_visited(next_cells_x, next_cells_y) is False:
+                self.recursive_backtrack_resolution((next_cells_x, next_cells_y))
+                if (self.width - 1, self.width - 1) in self.final_path:
+                    self.final_path.append(position)
 
     def set_final_path(self):
         for i in range(self.width):
@@ -179,8 +168,26 @@ class Maze:
         return True
 
 
-X = Maze(8)
+X = Maze(70)
 X.display()
 X.recursive_backtrack_resolution((0, 0))
 X.set_final_path()
 X.display()
+
+#        if y + 1 < self.width and self.cells[y + 1][x] == '.' and self.is_visited(x, y + 1) is False:
+#            self.recursive_backtrack_resolution((x, y + 1))
+#            if (self.width - 1, self.width - 1) in self.final_path:
+#                self.final_path.append(position)
+#            return
+#
+#        if x - 1 < self.width and self.cells[y][x - 1] == '.' and self.is_visited(x - 1, y) is False:
+#            self.recursive_backtrack_resolution((x - 1, y))
+#            if (self.width - 1, self.width - 1) in self.final_path:
+#                self.final_path.append(position)
+#            return
+
+#        if y - 1 < self.width and self.cells[y - 1][x] == '.' and self.is_visited(x, y - 1) is False:
+#            self.recursive_backtrack_resolution((x, y - 1))
+#            if (self.width - 1, self.width - 1) in self.final_path:
+#                self.final_path.append(position)
+#            return
