@@ -102,12 +102,12 @@ class Directions:
 
         print(COO_ARRAY)
 
-        # return an array with elements : B_ARRAY, initial position, actual position
+        # return an array with elements : B_ARRAY, initial position, direction in coord, actual position
         return (B_ARRAY, COO_ARRAY)
 
         # End_function_move_direction&
 
-    def eraser_noued_by_noued(self, COMPARE_ARRAY: int):
+    def eraser_noued_by_noued(self, COMPARE_ARRAY: int, noeud: int):
 
         # B_ARRAY
         # print(COMPARE_ARRAY[0])
@@ -115,11 +115,19 @@ class Directions:
         # print(COMPARE_ARRAY[1])
         print(COMPARE_ARRAY)
 
-        det = detection.Detection()
+        det = detection.Detection(COMPARE_ARRAY[1][0][0], COMPARE_ARRAY[1][1][0])
+        # det = detection.Detection()
         # COMPARE_ARRAY[1][])
 
-        print(det.get_position())
+        print(det.get_position()[0], det.get_position()[1])
 
         # detected_direction_index__by_direction_coord
+        #        3,4,5,6
+        det.detected_direction_by_coord(COMPARE_ARRAY, COMPARE_ARRAY[1][0][1],COMPARE_ARRAY[1][0][1])
 
         # opposite_dir()
+        #       5 , 6 , 3 , 4
+
+
+
+    # End_function_erase_nodeby_node

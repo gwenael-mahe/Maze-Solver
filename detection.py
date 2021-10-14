@@ -15,43 +15,26 @@ class Detection:
 
     # constructor
 
-
-
-    """ to avoid the circular import hole in Python
-    def __init__(self, directions : 'Directions'):
-        self._dirs = directions """
-
-
     def __init__(self):
         self.det_noeuds = []
-
-
-    def __int__(self):
-        return None
-
 
     def __init__(self, i: int, j: int):
         self.i = i
         self.j = j
 
-
     def get_position(self):
         # is an array return
         return (self.i, self.j)
-
 
     def set_position(self, i, j):
         self.i = i
         self.j = j
 
-
     def get_list(self):
         return self.det_noeuds
 
-
     def set_list(self, noeud):
         self.det_noeuds.append(noeud)
-
 
     """
     def arrets_num_random(self, B_ARRAY):
@@ -89,7 +72,6 @@ class Detection:
 
     """
 
-
     def choix_direction(self, B_ARRAY: int):
         k: int = 0
 
@@ -107,7 +89,6 @@ class Detection:
         else:
             # south
             return (1, 0)
-
 
     def pointeuse_arrets_direction(self, B_ARRAY: int):
         # simplified array direction
@@ -127,7 +108,7 @@ class Detection:
                 # records pointeuse to direction noeuds
                 # sert pour records of noeuds pointes avec arrets
                 # et ne pas les choisir comme direction dans les actuelles positions suivantes
-                self.input_detection_noeuds(self.detected_noeud_by_direction(B_ARRAY, k, self.i, self.j))
+                self.input_detected_noeuds(self.detected_noeud_by_direction(B_ARRAY, k, self.i, self.j))
 
             # end_if
             k = k + 1
@@ -150,7 +131,6 @@ class Detection:
 
         return C_ARRAY[0][k - 1]
 
-
     # end_function_point_direction
 
     def indicate_arrets(self, COMPARE_ARRAY):
@@ -159,18 +139,28 @@ class Detection:
         # COO_ARRAY
         print(COMPARE_ARRAY[1])
 
-        dir = directions.Directions
+        dir = directions.Directions()
 
+
+        # comparing if noued is present in list det_noeud
         # output of record of noued already visited
+        # todo
         print(self.output_detected_noeuds())
 
+        # if not passing to next direction
+        # calling function move next (1) type node
+
+        # calling fonction nodes by direction
+        #
+
+
+
         # erase arret by direction initial arret-noeud finally arret-noued
-        dir.eraser_noued_by_noued(COMPARE_ARRAY)
+        # dir.eraser_noued_by_noued(COMPARE_ARRAY, noeud)
 
         #
 
         return 0
-
 
     # End_function_erase_arrets
 
@@ -179,7 +169,6 @@ class Detection:
         # peut etre pas necessaire
         # todo
         return 0
-
 
     # End_function_arrests_pile
 
@@ -201,13 +190,12 @@ class Detection:
 
         return noeud
 
-
     # End_function_indicate_noeud
 
-    def input_detection_noeuds(self, noeud):
+    def input_detected_noeuds(self, noeud):
         # todo
 
-        print("the value in input detectrion noueud_:_" + str(noeud))
+        print("the value in input detected node_:_" + str(noeud))
 
         # append to list array one dimentional
 
@@ -217,15 +205,14 @@ class Detection:
 
         return 0
 
-
     def output_detected_noeuds(self):
         list_actually = self.get_list()
         return list_actually
 
+    def detected_direction_by_coord(self, COMPARE_ARRAY, dir_coord_i: int, dir_coord_j: int):
+        # to do
 
-    def detected_direction_by_coord(self, COMPARE_ARRAY):
         return 0
-
 
     def coord_by_noeud(self):
         # todo
