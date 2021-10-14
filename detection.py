@@ -1,12 +1,9 @@
-from unittest import case
-
 import numpy as np
 import motor_fleches
 import io_file
 
 
 class Detection:
-
     j: int
     i: int
     det_noeuds = []
@@ -14,7 +11,7 @@ class Detection:
     # constructor
 
     def __init__(self):
-        self.det_noeuds=[]
+        self.det_noeuds = []
 
     def __init__(self, i: int, j: int):
         self.i = i
@@ -28,13 +25,13 @@ class Detection:
         self.i = i
         self.j = j
 
-
     def get_list(self):
         return self.det_noeuds
 
     def set_list(self, noeud):
-        self.det_noeuds.append()
+        self.det_noeuds.append(noeud)
 
+    """
     def arrets_num_random(self, B_ARRAY):
         # found the number of arrets
         # range 1-n
@@ -45,15 +42,10 @@ class Detection:
         while (k < B_ARRAY.shape[0]):
             if (B_ARRAY[k][self.i][self.j] == 1):
                 sum = sum + 1
-                # la plus important fonction du programme :
-                # records pointeuse to direction noeuds
-                # sert pour records of noeuds pointes avec arrets
-                # et ne pas les choisir comme direction dans les actuelles positions suivantes
-                io_file.input_detection_noeuds(self.detected_noeud_by_direction(B_ARRAY, k, self.i, self.j))
-            k = k + 1
+                k = k + 1
         return sum
 
-    """
+
     def num_random_arrets(self, int_random, B_ARRAY):
         # olny four directionws
         int_random=3
@@ -72,6 +64,7 @@ class Detection:
                 self.choix_direction(B_ARRAY,3),
         }
         return switch.get(int_random, "not found selectio")  
+
     """
 
     def choix_direction(self, B_ARRAY: int):
@@ -110,6 +103,12 @@ class Detection:
 
             if (C_ARRAY[1][i] == 1):
                 sum = sum + 1
+                # la plus important fonction du programme :
+                # records pointeuse to direction noeuds
+                # sert pour records of noeuds pointes avec arrets
+                # et ne pas les choisir comme direction dans les actuelles positions suivantes
+                self.input_detection_noeuds(self.detected_noeud_by_direction(B_ARRAY, k, self.i, self.j))
+
             # end_if
             k = k + 1
             i = i + 1
@@ -129,7 +128,7 @@ class Detection:
             k = k + 1
         # end_while
 
-        return C_ARRAY[0][k-1]
+        return C_ARRAY[0][k - 1]
 
     # end_function_point_direction
 
@@ -141,7 +140,7 @@ class Detection:
         print(COMPARE_ARRAY[1])
 
         # output of record of noued already visited
-        io_file.output_detected_noeuds()
+        self.output_detected_noeuds()
 
         return 0
 
@@ -155,26 +154,45 @@ class Detection:
 
     # End_function_arrests_pile
 
-    def input_detection_noeuds(noeud):
-        # todo
-        # append to list array one dimentional
-        return 0
-
-
     def detected_noeud_by_direction(self, B_ARRAY, dir: int, i: int, j: int):
 
         print(B_ARRAY)
+        if (dir == 3):
+            # ouest
+            noeud = B_ARRAY[0][self.i + 0][self.j - 1]
+        elif (dir == 4):
+            # north
+            noeud = B_ARRAY[0][self.i - 1][self.j + 0]
+        elif (dir == 5):
+            # est
+            noeud = B_ARRAY[0][self.i + 0][self.j + 1]
+        else:
+            # sud
+            noeud = B_ARRAY[0][self.i + 1][self.j + 0]
+        # end_if
 
-        # todo
-        return 0
+        return noeud
+
     # End_function_indicate_noeud
 
-    def output_detected_noeuds():
+    def input_detection_noeuds(self, noeud):
+        # todo
+
+        print("the value in input detectrion noueud_:_"+ str(noeud))
+
+        # append to list array one dimentional
+
+        self.set_list(noeud)
+
+        print(self.output_detected_noeuds())
+
         return 0
 
+    def output_detected_noeuds(self):
+        list_actually=self.get_list()
+        return list_actually
 
     def coord_by_noeud(self):
         # todo
         return 0
     # end_function
-
