@@ -1,5 +1,7 @@
 import random
 import sys
+import PIL
+from PIL import Image
 sys.setrecursionlimit(15000)
 
 
@@ -10,9 +12,9 @@ class Maze:
         self.cells = [["0" for x in range(self.width)] for y in range(self.width)]
         self.visited = []
         self.final_path = []
-        self.recursive_backtrack(1, 1)
-        # self.kruskal()
-        self.set_walls()
+        # self.recursive_backtrack(1, 1)
+        self.kruskal()
+        # self.set_walls()
         self.cells[0][0] = "."
         self.cells[self.width - 1][self.width - 1] = "."
 
@@ -31,12 +33,23 @@ class Maze:
 
     def display(self):
         file = open("data.txt", "w")
+        white = (255, 255, 255)
+        blue = (0, 0, 255)
+        green = (0, 255, 0)
+        black = (0, 0, 0)
+        img = PIL.Image.new('RGB', (self.width, self.width), white)
         for i in range(self.width):
             for j in range(self.width):
-                file.write(self.cells[j][i])
+                if self.cells[j][i] == "#":
+                    img.putpixel((i, j), black)
+                elif self.cells[j][i] == "*":
+                    img.putpixel((i, j), blue)
+                elif self.cells[j][i] == "o":
+                    img.putpixel((i, j), green)
                 print(self.cells[j][i], end=' ')
             print("\n")
             file.write("\n")
+        img.show()
         file.close()
 
     def set_path(self, x, y):
@@ -128,6 +141,7 @@ class Maze:
                             for j in range(self.width):
                                 if self.cells[j][i] == tmp:
                                     self.cells[j][i] = self.cells[node_y][node_x]
+                                    node[self.cells[node_y][node_x]].append((i, j))
                         break
                     elif self.cells[y][x] < self.cells[node_y][node_x]:
                         tmp = self.cells[node_y][node_x]
@@ -138,6 +152,7 @@ class Maze:
                             for j in range(self.width):
                                 if self.cells[j][i] == tmp:
                                     self.cells[j][i] = self.cells[y][x]
+                                    node[self.cells[y][x]].append((i, j))
                         break
         for i in range(self.width):
             for j in range(self.width):
@@ -168,13 +183,13 @@ class Maze:
         for i in range(self.width):
             for j in range(self.width):
                 if (i, j) in self.final_path:
-                    self.cells[j][i] = "0"
-                elif self.cells[j][i] != "#":
+                    self.cells[j][i] = "o"
+                elif self.cells[j][i] != "#" and self.is_visited(i, j) is True:
                     self.cells[j][i] = "*"
         return True
 
 
-X = Maze(50)
+X = Maze(75)
 X.recursive_backtrack_resolution((0, 0))
 X.set_final_path()
 X.display()
