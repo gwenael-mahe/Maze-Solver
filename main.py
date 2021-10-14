@@ -1,5 +1,4 @@
 import mazes
-import motor_fleches
 
 # import classes different to simples files in outside
 from detection import Detection
@@ -36,7 +35,8 @@ def main():
         # indicate_arrets_by_direction o,n,e,s
         det.indicate_arrets(dir.move_direction(dir.array_coordonnes(n), det.choix_direction(dir.array_coordonnes(n))))
 
-
+        # Exit program definitively
+        exit()
     except ImportError:
         print("founded error in main")
     # EndTry

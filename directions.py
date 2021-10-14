@@ -1,7 +1,11 @@
 import numpy as np
 
 # import classes different to simples files in outside
-from detection import Detection
+# from numpy.dual import det
+
+# from detection import Detection
+
+import detection
 
 
 class Directions:
@@ -72,7 +76,7 @@ class Directions:
 
         COO_ARRAY = np.zeros((2, 3), dtype=int, order='F')
 
-        det = Detection(0, 0)
+        det = detection.Detection(0, 0)
 
         # initial_position
         # 0 dim for initial position
@@ -83,10 +87,9 @@ class Directions:
         COO_ARRAY[0][0] = det.get_position()[0]
         COO_ARRAY[1][0] = det.get_position()[1]
 
-        #incrementeur of position
+        # incrementeur of position
         COO_ARRAY[0][1] = DIR_ARRAY[0]
         COO_ARRAY[1][1] = DIR_ARRAY[1]
-
 
         # increasing position
         # 2 dim for finally/actually position coordoonne
@@ -102,4 +105,21 @@ class Directions:
         # return an array with elements : B_ARRAY, initial position, actual position
         return (B_ARRAY, COO_ARRAY)
 
-    # End_function_move_direction&
+        # End_function_move_direction&
+
+    def eraser_noued_by_noued(self, COMPARE_ARRAY: int):
+
+        # B_ARRAY
+        # print(COMPARE_ARRAY[0])
+        # COO_ARRAY
+        # print(COMPARE_ARRAY[1])
+        print(COMPARE_ARRAY)
+
+        det = detection.Detection()
+        # COMPARE_ARRAY[1][])
+
+        print(det.get_position())
+
+        # detected_direction_index__by_direction_coord
+
+        # opposite_dir()
