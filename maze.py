@@ -12,9 +12,9 @@ class Maze:
         self.cells = [["0" for x in range(self.width)] for y in range(self.width)]
         self.visited = []
         self.final_path = []
-        # self.recursive_backtrack(1, 1)
+        #self.recursive_backtrack(1, 1)
         self.kruskal()
-        # self.set_walls()
+        #self.set_walls()
         self.cells[0][0] = "."
         self.cells[self.width - 1][self.width - 1] = "."
 
@@ -37,15 +37,16 @@ class Maze:
         blue = (0, 0, 255)
         green = (0, 255, 0)
         black = (0, 0, 0)
-        img = PIL.Image.new('RGB', (self.width, self.width), white)
+        img = PIL.Image.new('RGB', (self.width + 2, self.width + 2), white)
         for i in range(self.width):
             for j in range(self.width):
+                file.write(self.cells[j][i])
                 if self.cells[j][i] == "#":
-                    img.putpixel((i, j), black)
+                    img.putpixel((i + 1, j + 1), black)
                 elif self.cells[j][i] == "*":
-                    img.putpixel((i, j), blue)
+                    img.putpixel((i + 1, j + 1), blue)
                 elif self.cells[j][i] == "o":
-                    img.putpixel((i, j), green)
+                    img.putpixel((i + 1, j + 1), green)
                 print(self.cells[j][i], end=' ')
             print("\n")
             file.write("\n")
@@ -189,7 +190,7 @@ class Maze:
         return True
 
 
-X = Maze(75)
+X = Maze(45)
 X.recursive_backtrack_resolution((0, 0))
 X.set_final_path()
 X.display()
