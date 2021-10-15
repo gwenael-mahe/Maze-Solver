@@ -141,22 +141,27 @@ class Detection:
 
         dir = directions.Directions()
 
-
         # comparing if noued is present in list det_noeud
         # output of record of noued already visited
-        # todo
+        # to do
+
+        # actual node COMPARE_ARRAY[1][0][2], COMPARE_ARRAY[1][1][2]
+
+
         print(self.output_detected_noeuds())
+
+
 
         # if not passing to next direction
         # calling function move next (1) type node
 
+
         # calling fonction nodes by direction
         #
 
-
-
         # erase arret by direction initial arret-noeud finally arret-noued
         # dir.eraser_noued_by_noued(COMPARE_ARRAY, noeud)
+
 
         #
 
@@ -212,7 +217,25 @@ class Detection:
     def detected_direction_by_coord(self, COMPARE_ARRAY, dir_coord_i: int, dir_coord_j: int):
         # to do
 
-        return 0
+        # B_ARRAY
+        # print(COMPARE_ARRAY[0])
+        # COO_ARRAY
+        # print(COMPARE_ARRAY[1])
+        print(COMPARE_ARRAY)
+
+        if (COMPARE_ARRAY[1][1][1] == -1 and COMPARE_ARRAY[1][0][1] == 0):
+            direc = 3
+        elif (COMPARE_ARRAY[1][1][1] == 1 and COMPARE_ARRAY[1][0][1] == 0):
+            dire = 5
+        elif (COMPARE_ARRAY[1][0][1] == -1 and COMPARE_ARRAY[1][1][1] == 0):
+            dire = 4
+        else:
+            dire = 6
+        # End_if
+
+        return dire
+
+    # End_function_detected_direction_by_coord
 
     def coord_by_noeud(self):
         # todo

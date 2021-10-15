@@ -123,10 +123,14 @@ class Directions:
 
         # detected_direction_index__by_direction_coord
         #        3,4,5,6
-        det.detected_direction_by_coord(COMPARE_ARRAY, COMPARE_ARRAY[1][0][1],COMPARE_ARRAY[1][0][1])
+
+
+        # dire ATTENTION : not tested
+        print(det.detected_direction_by_coord(COMPARE_ARRAY, COMPARE_ARRAY[1][0][1],COMPARE_ARRAY[1][0][1]))
+
 
         # opposite_dir()
-        #       5 , 6 , 3 , 4
+        # 5 , 6 , 3 , 4
 
 
 
